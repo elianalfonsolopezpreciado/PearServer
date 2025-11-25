@@ -37,12 +37,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # AQUÍ ESTÁ EL ARREGLO: Usamos @master y pedimos la versión 1.82.0 explícitamente
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: 1.82.0
-          targets: ${{ matrix.target }}
+      # SOLUCIÓN NUCLEAR: Comandos directos, sin plugins intermediarios
+      - name: Force Rust Update
+        shell: bash
+        run: |
+          rustup update stable
+          rustup default stable
+          rustup target add ${{ matrix.target }}
+          echo "¡VERIFICANDO VERSIÓN OBLIGADA!:"
+          rustc --version
 
       - name: Build release binary
         run: cargo build --release --target ${{ matrix.target }}
