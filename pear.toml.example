@@ -1,0 +1,48 @@
+# Pear Server Configuration
+
+# Server settings
+[server]
+http2_port = 8080
+http3_port = 8443
+bind_addr = "0.0.0.0"
+
+# SSL/TLS configuration
+[ssl]
+# Enable automatic certificate generation via Let's Encrypt
+auto_cert = false
+
+# Email for Let's Encrypt notifications (required if auto_cert = true)
+# email = "admin@example.com"
+
+# Domains to generate certificates for (required if auto_cert = true)
+# domains = ["example.com", "www.example.com"]
+
+# Cage configuration
+[cages]
+# Number of redundant Cage instances per site
+default_replicas = 3
+
+# Memory limit per Cage (in MB)
+memory_limit_mb = 128
+
+# CPU timeout per request (in milliseconds)
+cpu_timeout_ms = 1000
+
+# AI Security configuration
+[ai]
+# Enable anomaly detection
+enable_anomaly_detection = true
+
+# Anomaly detection threshold (0.0-1.0)
+anomaly_threshold = 0.8
+
+# Traffic sampling rate (0.0-1.0, 1.0 = analyze all requests)
+sample_rate = 0.1
+
+# Dashboard configuration
+[dashboard]
+# Dashboard HTTP port
+port = 9000
+
+# Enable dashboard
+enabled = true

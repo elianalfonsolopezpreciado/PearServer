@@ -1,0 +1,402 @@
+/* Pear Server Dashboard Styles - Phase 4 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-dark: #0a0e27;
+    --bg-panel: #151b3d;
+    --bg-card: #1e2749;
+    --text-primary: #e8ead;
+    --text-secondary: #a0a3b5;
+    --accent: #00d4ff;
+    --success: #00ff88;
+    --warning: #ffaa00;
+    --error: #ff4444;
+    --border: #2a3150;
+    --root-badge: #ff6b35;
+    --tenant-badge: #4ecdc4;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* Login Screen */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1f3a 100%);
+}
+
+.login-box {
+    background: var(--bg-panel);
+    border: 2px solid var(--accent);
+    border-radius: 16px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
+}
+
+.login-box h2 {
+    color: var(--text-primary);
+    margin: 1rem 0 2rem 0;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--success));
+    border: none;
+    border-radius: 8px;
+    color: var(--bg-dark);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+/* Dashboard Container */
+.dashboard-header {
+    background: var(--bg-panel);
+    border-bottom: 2px solid var(--accent);
+    padding: 1.5rem 2rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--accent), var(--success));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.role-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.role-badge.root {
+    background: var(--root-badge);
+    color: white;
+}
+
+.role-badge.tenant {
+    background: var(--tenant-badge);
+    color: var(--bg-dark);
+}
+
+.btn-logout {
+    padding: 0.5rem 1rem;
+    background: var(--error);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.header-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.stat {
+    text-align: right;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+/* Main Content */
+.dashboard-main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.panel-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+/* Tenant Management */
+.btn-create {
+    padding: 0.75rem 1.5rem;
+    background: var(--success);
+    border: none;
+    border-radius: 8px;
+    color: var(--bg-dark);
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.tenant-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.tenant-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.tenant-header h3 {
+    margin: 0;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.status-badge.active {
+    background: var(--success);
+    color: var(--bg-dark);
+}
+
+.status-badge.testing {
+    background: var(--warning);
+    color: var(--bg-dark);
+}
+
+.quota-item {
+    margin: 0.75rem 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.25rem;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--success));
+}
+
+.btn-danger {
+    padding: 0.5rem 1rem;
+    background: var(--error);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Global Security */
+.security-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.security-stat-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.stat-icon {
+    font-size: 2rem;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent);
+    margin: 0.5rem 0;
+}
+
+/* Canary Deployment */
+.canary-card {
+    background: var(--bg-card);
+    border: 2px solid var(--warning);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.canary-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+}
+
+.info-row code {
+    background: var(--bg-dark);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    color: var(--accent);
+}
+
+.canary-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-success {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--success);
+    border: none;
+    border-radius: 8px;
+    color: var(--bg-dark);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Cage Grid */
+.cage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.cage-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    position: relative;
+}
+
+.cage-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--success);
+}
+
+.cage-card.initializing::before {
+    background: var(--warning);
+}
+
+.cage-card.crashed::before {
+    background: var(--error);
+}
+
+.cage-status.running {
+    color: var(--success);
+}
+
+.cage-status.initializing {
+    color: var(--warning);
+}
+
+.cage-status.crashed {
+    color: var(--error);
+}
+
+/* Footer */
+.dashboard-footer {
+    background: var(--bg-panel);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--warning);
+}
+
+.status-indicator.connected {
+    background: var(--success);
+}

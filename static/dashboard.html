@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍐 Pear Server Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <h1 class="logo">🍐 Pear Server</h1>
+            <h2>Administration Dashboard</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="role-select">
+                        <option value="root">Root Administrator</option>
+                        <option value="tenant">Tenant Admin</option>
+                    </select>
+                </div>
+                <div class="form-group" id="tenant-select-group" style="display:none;">
+                    <label>Tenant</label>
+                    <select id="tenant-select">
+                        <option value="default">Default Tenant</option>
+                        <option value="acme">Acme Corp</option>
+                        <option value="demo">Demo Inc</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard (hidden until login) -->
+    <div id="main-dashboard" class="dashboard-container" style="display:none;">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1 class="logo">🍐 Pear Server</h1>
+                <div class="user-info">
+                    <span id="current-role" class="role-badge">Root Admin</span>
+                    <span id="current-tenant"></span>
+                    <button id="logout-btn" class="btn-logout">Logout</button>
+                </div>
+                <div class="header-stats">
+                    <div class="stat">
+                        <span class="stat-label">Uptime</span>
+                        <span class="stat-value" id="uptime">--</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Requests</span>
+                        <span class="stat-value" id="total-requests">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Success Rate</span>
+                        <span class="stat-value" id="success-rate">100%</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Root Admin Only: Tenant Management -->
+            <section id="tenant-management" class="panel" style="display:none;">
+                <h2 class="panel-title">👥 Tenant Management</h2>
+                <div class="tenant-controls">
+                    <button class="btn-create" onclick="createTenant()">+ Create Tenant</button>
+                </div>
+                <div class="tenant-list" id="tenant-list">
+                    <div class="tenant-card">
+                        <div class="tenant-header">
+                            <h3>Acme Corp</h3>
+                            <span class="status-badge active">Active</span>
+                        </div>
+                        <div class="tenant-quotas">
+                            <div class="quota-item">
+                                <span>Sites: 3/5</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div class="quota-item">
+                                <span>Storage: 2.1/10 GB</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 21%"></div>
+                                </div>
+                            </div>
+                            <div class="quota-item">
+                                <span>RAM per Cage: 128 MB</span>
+                            </div>
+                        </div>
+                        <button class="btn-danger" onclick="deleteTenant('acme')">Delete</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Root Admin Only: Global Security -->
+            <section id="global-security" class="panel" style="display:none;">
+                <h2 class="panel-title">🔒 Global Security Monitor</h2>
+                <div class="security-grid">
+                    <div class="security-stat-card">
+                        <div class="stat-icon">🚫</div>
+                        <div class="stat-number" id="ddos-blocks">42</div>
+                        <div class="stat-label">DDoS Blocks (24h)</div>
+                    </div>
+                    <div class="security-stat-card">
+                        <div class="stat-icon">🔍</div>
+                        <div class="stat-number" id="scan-attempts">127</div>
+                        <div class="stat-label">Scan Attempts</div>
+                    </div>
+                    <div class="security-stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-number" id="anomalies">8</div>
+                        <div class="stat-label">Performance Anomalies</div>
+                    </div>
+                    <div class="security-stat-card">
+                        <div class="stat-icon">🛡️</div>
+                        <div class="stat-number" id="banned-ips">15</div>
+                        <div class="stat-label">Banned IPs</div>
+                    </div>
+                </div>
+                <div class="banned-ips-list">
+                    <h3>Recently Banned IPs</h3>
+                    <div id="banned-ips-table"></div>
+                </div>
+            </section>
+
+            <!-- Canary Deployment Controls -->
+            <section class="panel canary-panel">
+                <h2 class="panel-title">🚀 Canary Deployments</h2>
+                <div id="canary-controls">
+                    <div class="canary-card">
+                        <div class="canary-header">
+                            <h3>Beta: production-site</h3>
+                            <span class="status-badge testing">Testing</span>
+                        </div>
+                        <div class="canary-info">
+                            <div class="info-row">
+                                <span>Secret:</span>
+                                <code>beta-abc123def456</code>
+                            </div>
+                            <div class="info-row">
+                                <span>Test URL:</span>
+                                <a href="#">https://example.com/?beta=abc123def456</a>
+                            </div>
+                            <div class="info-row">
+                                <span>Traffic:</span>
+                                <span class="traffic-pct">0% (Testing Phase)</span>
+                            </div>
+                            <div class="info-row">
+                                <span>Error Rate:</span>
+                                <span class="error-rate-good">0.2%</span>
+                            </div>
+                        </div>
+                        <div class="canary-actions">
+                            <button class="btn-success" onclick="promoteCanary('production-site')">
+                                ✓ Promote to Production
+                            </button>
+                            <button class="btn-danger" onclick="rollbackCanary('production-site')">
+                                ✗ Rollback/Kill Beta
+                            </button>
+                        </div>
+                    </div>
+                    <div class="canary-placeholder">
+                        <p>No active canary deployments</p>
+                        <button class="btn-create" onclick="createCanary()">+ Create Canary</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cage Pool Section -->
+            <section class="panel cage-pool-panel">
+                <h2 class="panel-title">Cage Pool Status</h2>
+                <div class="cage-grid" id="cage-grid">
+                    <!-- Cages will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="panel stats-panel">
+                <h2 class="panel-title">Traffic Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-label">Total Requests</div>
+                        <div class="stat-card-value" id="stat-total">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">Successful</div>
+                        <div class="stat-card-value success" id="stat-success">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">Failed</div>
+                        <div class="stat-card-value error" id="stat-failed">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">Active Pools</div>
+                        <div class="stat-card-value" id="stat-pools">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Security Section -->
+            <section class="panel security-panel">
+                <h2 class="panel-title">🔒 AI Security Sentinel</h2>
+                <div class="security-status">
+                    <div class="security-stat">
+                        <span class="security-label">Anomaly Detection:</span>
+                        <span class="security-value" id="ai-status">ACTIVE</span>
+                    </div>
+                    <div class="security-stat">
+                        <span class="security-label">Threats Detected:</span>
+                        <span class="security-value" id="threats-count">0</span>
+                    </div>
+                </div>
+                <div class="threat-log" id="threat-log">
+                    <div class="log-placeholder">No threats detected</div>
+                </div>
+            </section>
+
+            <!-- Supervisor Section -->
+            <section class="panel supervisor-panel">
+                <h2 class="panel-title">🩺 Self-Healing Supervisor</h2>
+                <div class="supervisor-stats">
+                    <div class="supervisor-stat">
+                        <span class="supervisor-label">Status:</span>
+                        <span class="supervisor-value running" id="supervisor-status">RUNNING</span>
+                    </div>
+                    <div class="supervisor-stat">
+                        <span class="supervisor-label">Healing Events:</span>
+                        <span class="supervisor-value" id="healing-events">0</span>
+                    </div>
+                    <div class="supervisor-stat">
+                        <span class="supervisor-label">Supervised Pools:</span>
+                        <span class="supervisor-value" id="supervised-pools">0</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="connection-status">
+                <span class="status-indicator" id="ws-status"></span>
+                <span id="ws-text">Connecting...</span>
+            </div>
+            <div class="version">Pear Server v0.4.0 - Phase 4 Enterprise</div>
+        </footer>
+    </div>
+
+    <script src="/static/dashboard.js"></script>
+</body>
+
+</html>

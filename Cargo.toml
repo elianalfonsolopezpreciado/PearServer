@@ -1,0 +1,117 @@
+[package]
+name = "pear-server"
+version = "0.4.0"
+edition = "2021"
+authors = ["Pear Server Team"]
+description = "Revolutionary next-generation web server with self-healing Cage Pool architecture"
+license = "MIT"
+rust-version = "1.75"
+
+[dependencies]
+# Async Runtime - Multi-threaded Tokio with full features
+tokio = { version = "1.35", features = ["full", "tracing"] }
+
+# HTTP/2 over TCP
+hyper = { version = "1.1", features = ["http1", "http2", "server"] }
+hyper-util = { version = "0.1", features = ["tokio", "server", "server-auto"] }
+http-body-util = "0.1"
+
+# HTTP/3 over QUIC
+quinn = "0.10"
+rustls = { version = "0.22", default-features = false, features = ["ring"] }
+rcgen = "0.12"  # For self-signed certs in development
+
+# Networking utilities
+socket2 = "0.5"
+bytes = "1.5"
+
+# Signal handling
+signal-hook = "0.3"
+signal-hook-tokio = { version = "0.3", features = ["futures-v0_3"] }
+
+# Structured logging and observability
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json", "fmt"] }
+
+# High-performance concurrency primitives
+parking_lot = "0.12"
+dashmap = "5.5"
+
+# Shared state and zero-copy operations
+arc-swap = "1.6"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# System resource management
+libc = "0.2"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Additional utilities
+num_cpus = "1.16"
+uuid = { version = "1.6", features = ["v4", "serde"] }
+futures = "0.3"
+
+# Phase 2: WebAssembly Runtime (Cage Architecture)
+wasmtime = "16.0"
+wasmtime-wasi = "16.0"
+
+# Phase 2: CRDT State Synchronization
+automerge = "0.5"
+
+# Phase 2: AI and Machine Learning
+linfa = "0.7"
+linfa-clustering = "0.7"
+ndarray = { version = "0.15", features = ["serde"] }
+smartcore = "0.3"
+
+# Phase 2: Additional async utilities
+tokio-util = { version = "0.7", features = ["codec"] }
+async-trait = "0.1"
+rand = "0.8"
+
+# Phase 3: CLI and User Interface
+clap = { version = "4.4", features = ["derive", "cargo"] }
+colored = "2.1"
+indicatif = "0.17"
+
+# Phase 3: Dashboard and WebSocket
+axum = { version = "0.7", features = ["ws"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["fs", "trace"] }
+tokio-tungstenite = "0.21"
+
+# Phase 3: Configuration Management
+toml = "0.8"
+config = "0.13"
+
+# Phase 3: ACME/Let's Encrypt
+rustls-acme = "0.7"
+
+# Additional utilities
+chrono = "0.4"
+
+# Phase 4: Multi-tenancy and storage
+walkdir = "2.4"
+
+[dev-dependencies]
+# Testing utilities
+tokio-test = "0.4"
+wat = "1.0"  # For creating test Wasm modules
+tempfile = "3.8"  # For temporary directories in tests
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = false  # Keep debug symbols for profiling
+debug = 1      # Line tables for better stack traces in production
+
+[profile.dev]
+opt-level = 0
+debug = true

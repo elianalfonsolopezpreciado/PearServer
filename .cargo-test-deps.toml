@@ -1,0 +1,2 @@
+// WAT module dependency for testing
+wat = "1.0"

@@ -1,0 +1,2 @@
+# Do not commit large Wasm runtime files to git
+*.wasm
