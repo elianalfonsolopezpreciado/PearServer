@@ -37,19 +37,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # ESTA ES LA CLAVE: Todo junto en el mismo paso para que no se pierda la memoria
-      - name: Build & Force Update
+      # TÉCNICA DEL FRANCOTIRADOR: Instalamos la versión exacta y forzamos el override
+      - name: Force Specific Rust Version
         shell: bash
         run: |
-          echo "🛠️ FORZANDO ACTUALIZACIÓN DE RUST (INTENTO FINAL)..."
-          rustup update stable
-          rustup default stable
+          echo "🔥 INSTALANDO RUST 1.82.0 MANUALMENTE..."
+          rustup toolchain install 1.82.0 --profile minimal
+          
+          echo "🔒 OBLIGANDO A USAR 1.82.0 EN ESTA CARPETA..."
+          rustup override set 1.82.0
+          
+          echo "🎯 AÑADIENDO TARGET..."
           rustup target add ${{ matrix.target }}
           
-          echo "👀 VERIFICANDO VERSIÓN (TIENE QUE DECIR 1.82 O SUPERIOR):"
+          echo "👀 VERIFICACIÓN FINAL (DEBE DECIR 1.82.0):"
           rustc --version
           
-          echo "🚀 CONSTRUYENDO BINARIO..."
+          echo "🚀 CONSTRUYENDO..."
           cargo build --release --target ${{ matrix.target }}
 
       - name: Strip binary (Linux/macOS)
