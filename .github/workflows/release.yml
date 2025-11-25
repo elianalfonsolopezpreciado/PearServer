@@ -37,18 +37,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # SOLUCIÓN NUCLEAR: Comandos directos, sin plugins intermediarios
-      - name: Force Rust Update
+      # ESTA ES LA CLAVE: Todo junto en el mismo paso para que no se pierda la memoria
+      - name: Build & Force Update
         shell: bash
         run: |
+          echo "🛠️ FORZANDO ACTUALIZACIÓN DE RUST (INTENTO FINAL)..."
           rustup update stable
           rustup default stable
           rustup target add ${{ matrix.target }}
-          echo "¡VERIFICANDO VERSIÓN OBLIGADA!:"
+          
+          echo "👀 VERIFICANDO VERSIÓN (TIENE QUE DECIR 1.82 O SUPERIOR):"
           rustc --version
-
-      - name: Build release binary
-        run: cargo build --release --target ${{ matrix.target }}
+          
+          echo "🚀 CONSTRUYENDO BINARIO..."
+          cargo build --release --target ${{ matrix.target }}
 
       - name: Strip binary (Linux/macOS)
         if: matrix.os != 'windows-latest'
