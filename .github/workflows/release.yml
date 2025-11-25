@@ -37,20 +37,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # TÉCNICA DEL FRANCOTIRADOR: Instalamos la versión exacta y forzamos el override
       - name: Force Specific Rust Version
         shell: bash
         run: |
-          echo "🔥 INSTALANDO RUST 1.82.0 MANUALMENTE..."
-          rustup toolchain install 1.82.0 --profile minimal
+          echo "🔥 INSTALANDO RUST 1.83.0 MANUALMENTE..."
+          rustup toolchain install 1.83.0 --profile minimal
           
-          echo "🔒 OBLIGANDO A USAR 1.82.0 EN ESTA CARPETA..."
-          rustup override set 1.82.0
+          echo "🔒 OBLIGANDO A USAR 1.83.0 EN ESTA CARPETA..."
+          rustup override set 1.83.0
           
           echo "🎯 AÑADIENDO TARGET..."
           rustup target add ${{ matrix.target }}
           
-          echo "👀 VERIFICACIÓN FINAL (DEBE DECIR 1.82.0):"
+          echo "👀 VERIFICACIÓN FINAL (DEBE DECIR 1.83.0):"
           rustc --version
           
           echo "🚀 CONSTRUYENDO..."
