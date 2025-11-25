@@ -20,43 +20,26 @@ jobs:
             target: x86_64-unknown-linux-gnu
             artifact_name: pear
             asset_name: pear-linux-x86_64
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            artifact_name: pear.exe
-            asset_name: pear-windows-x86_64.exe
           - os: macos-latest
             target: x86_64-apple-darwin
             artifact_name: pear
             asset_name: pear-macos-x86_64
-          - os: macos-latest
-            target: aarch64-apple-darwin
-            artifact_name: pear
-            asset_name: pear-macos-aarch64
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Force Specific Rust Version
-        shell: bash
-        run: |
-          echo "🔥 INSTALANDO RUST 1.83.0 MANUALMENTE..."
-          rustup toolchain install 1.83.0 --profile minimal
-          
-          echo "🔒 OBLIGANDO A USAR 1.83.0 EN ESTA CARPETA..."
-          rustup override set 1.83.0
-          
-          echo "🎯 AÑADIENDO TARGET..."
-          rustup target add ${{ matrix.target }}
-          
-          echo "👀 VERIFICACIÓN FINAL (DEBE DECIR 1.83.0):"
-          rustc --version
-          
-          echo "🚀 CONSTRUYENDO..."
-          cargo build --release --target ${{ matrix.target }}
+      # ESTA ACCIÓN GARANTIZA LA VERSIÓN 1.83 SIN FALLOS
+      - name: Setup Rust 1.83.0
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.83.0
+          targets: ${{ matrix.target }}
+
+      - name: Build release binary
+        run: cargo build --release --target ${{ matrix.target }}
 
       - name: Strip binary (Linux/macOS)
-        if: matrix.os != 'windows-latest'
         run: strip target/${{ matrix.target }}/release/${{ matrix.artifact_name }}
 
       - name: Prepare Asset
