@@ -1,4 +1,4 @@
-# 🍐 Pear Server v0.4.0
+#  Pear Server v0.4.0
 
 **Revolutionary next-generation web server with self-healing Cage Pool architecture, enterprise multi-tenancy, and AI-powered security.**
 
@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Phase](https://img.shields.io/badge/phase-4%20complete-success.svg)]()
 
-## 🚀 Features
+##  Features
 
 ### Phase 1: Foundation
 - ✅ **Dual-Protocol Networking**: HTTP/2 (TCP) + HTTP/3 (QUIC) support
@@ -27,7 +27,7 @@
 - ✅ **Zero-Config SSL**: Automatic Let's Encrypt integration (ACME ready)
 - ✅ **Smart Configuration**: TOML-based with sensible defaults
 
-### Phase 4: Enterprise Operations ✨ NEW
+### Phase 4: Enterprise Operations  NEW
 - ✅ **Multi-Tenancy**: Root Admin + Tenant hierarchy with complete isolation
 - ✅ **Canary Deployments**: Cookie-based beta testing with auto-rollback
 - ✅ **Advanced AI Security**:
@@ -38,7 +38,7 @@
 - ✅ **Zero-Copy Storage**: Wasmtime bind mounts for shared file access
 - ✅ **CI/CD Pipeline**: GitHub Actions cross-compilation (Linux, Windows, macOS, ARM64)
 
-## 📦 Installation
+##  Installation
 
 ### Option 1: Download Pre-Compiled Binary (Recommended)
 
@@ -82,7 +82,7 @@ cargo build --release
 # Binary location: target/release/pear
 ```
 
-## 🎯 Quick Start
+##  Quick Start
 
 ### 1. Start Server
 
@@ -125,7 +125,7 @@ pear deploy ./flask-app/ --site api
 pear deploy ./static-site/ --site landing
 ```
 
-## 🎛️ CLI Commands
+##  CLI Commands
 
 ```bash
 # Server management
@@ -151,21 +151,21 @@ pear setup                                     # Download Wasm runtimes
 pear dashboard                                 # Show dashboard URL
 ```
 
-## 📊 Dashboard Features
+##  Dashboard Features
 
 ### Root Admin View
-- 👥 **Tenant Management**: Create/delete tenants, set quotas
-- 🔒 **Global Security Monitor**: DDoS blocks, scan attempts, banned IPs
-- 🚀 **Canary Deployment Controls**: Promote/rollback with one click
-- 📈 **System-Wide Statistics**: All sites, all tenants
+-  **Tenant Management**: Create/delete tenants, set quotas
+-  **Global Security Monitor**: DDoS blocks, scan attempts, banned IPs
+-  **Canary Deployment Controls**: Promote/rollback with one click
+-  **System-Wide Statistics**: All sites, all tenants
 
 ### Tenant Admin View
-- 🎯 **Isolated Cage Pool**: View only your sites
-- 📊 **Usage Metrics**: Storage, requests, success rates
-- 🔐 **Site Management**: Deploy, scale, monitor
-- 🚫 **No Global Access**: Tenant data isolation enforced
+-  **Isolated Cage Pool**: View only your sites
+-  **Usage Metrics**: Storage, requests, success rates
+-  **Site Management**: Deploy, scale, monitor
+-  **No Global Access**: Tenant data isolation enforced
 
-## ⚙️ Configuration
+##  Configuration
 
 Create `pear.toml` in your working directory:
 
@@ -197,7 +197,7 @@ enabled = true
 
 See [pear.toml.example](pear.toml.example) for all options.
 
-## 🏢 Multi-Tenancy
+##  Multi-Tenancy
 
 ### Create a Tenant (Root Admin only)
 
@@ -225,7 +225,7 @@ curl -X POST http://localhost:9000/api/tenants \
 pear deploy app.wasm --tenant acme --site production
 ```
 
-## 🛡️ Security Features
+##  Security Features
 
 ### AI-Powered Security
 
@@ -247,7 +247,7 @@ pear deploy app.wasm --tenant acme --site production
 - **No Host Access**: WASI permissions control file/network access
 - **CPU Limits**: Timeout enforcement (1000ms default)
 
-## 🚀 Production Deployment
+##  Production Deployment
 
 ### Docker
 
@@ -298,14 +298,14 @@ sudo systemctl start pear
 
 See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for Kubernetes, cloud platforms, and advanced configuration.
 
-## 📚 Documentation
+##  Documentation
 
 - [CLI Reference](docs/CLI_REFERENCE.md) - Complete command documentation
 - [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment strategies
 - [Architecture](ARCHITECTURE.md) - System design and internals
 - [API Reference](docs/API.md) - REST and WebSocket APIs
 
-## 🧪 Testing
+##  Testing
 
 ```bash
 # Run all tests
@@ -318,11 +318,11 @@ cargo test --test integration_tests
 cargo test test_tenant_isolation
 ```
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## 📊 Performance
+##  Performance
 
 - **Throughput**: 80,000+ req/s
 - **Latency**: ~8ms average (including routing overhead)
@@ -330,18 +330,18 @@ Contributions welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Recovery Time**: <5 seconds (automatic failover)
 - **Concurrent Connections**: 1,000,000+
 
-## 🗺️ Roadmap
+##  Roadmap
 
 - [ ] **Phase 5**: Distributed CRDT across servers
 - [ ] **Phase 6**: GPU-accelerated AI inference
 - [ ] **Phase 7**: Zero-RTT HTTP/3 connections
 - [ ] **Phase 8**: WebAssembly component model support
 
-## 📄 License
+##  License
 
 MIT License - see [LICENSE](LICENSE) file.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - [Wasmtime](https://wasmtime.dev/) - WebAssembly runtime
 - [Tokio](https://tokio.rs/) - Async runtime
@@ -350,4 +350,4 @@ MIT License - see [LICENSE](LICENSE) file.
 
 ---
 
-**Made with 🦀 Rust** | **Powered by 🍐 Pear**
+**Made with  Rust** | **Powered by  Pear**
